@@ -30,8 +30,8 @@ RUN mkdir /latex
 WORKDIR /latex
 # environment variables
 ENV WARNINGS -Wall
-ENV DELETE_TEMP
-ENV CLEAN_BUILD
+ENV DELETE_TEMP=
+ENV CLEAN_BUILD=
 ENV TARGET main
 
 # compilation script
