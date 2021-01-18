@@ -23,9 +23,18 @@ RUN apt-get install -y python3-pip
 RUN pip3 install Pygments
 # inkscape
 RUN apt-get install -y inkscape
-# compilation script and working directory
-# there might drastically change in the future
-COPY compile.sh /
+# latexrun
+ADD https://raw.githubusercontent.com/aclements/latexrun/master/latexrun /latexrun.py
+# working directory
 RUN mkdir /latex
 WORKDIR /latex
+# environment variables
+ENV WARNINGS -Wall
+ENV DELETE_TEMP
+ENV CLEAN_BUILD
+ENV TARGET main
+
+# compilation script
+COPY compile.sh /
+
 CMD ["bash", "/compile.sh"]
