@@ -4,18 +4,19 @@ FROM ubuntu:20.04
 RUN apt-get update &&\
     DEBIAN_FRONTEND=noninteractive \
     DEBCONF_NONINTERACTIVE_SEEN=true \
-    apt-get install -y --no-install-recommends apt-utils \
-    tzdata \
-    texlive-latex-base \
-    texlive-fonts-recommended \
-    texlive-latex-extra \
-    texlive-lang-german \
+    apt-get install -y --no-install-recommends \
+    apt-utils \
     biber \
-    texlive-bibtex-extra \
+    inkscape \
     python3 \
     python3-pip \
-    inkscape
-
+    texlive-bibtex-extra \
+    texlive-fonts-recommended \
+    texlive-lang-german \
+    texlive-latex-base \
+    texlive-latex-extra \
+    tzdata \
+    && rm -rf /var/lib/apt/lists/*
 # pygments for syntax highlighting via minted
 RUN pip3 install Pygments
 
