@@ -25,8 +25,8 @@ RUN pip3 install Pygments
 RUN apt-get install -y inkscape
 # latexrun
 ADD https://raw.githubusercontent.com/aclements/latexrun/master/latexrun /latexrun.py
+RUN chmod 644 /latexrun.py
 # working directory
-RUN mkdir /latex
 WORKDIR /latex
 # environment variables
 ENV WARNINGS -Wall
