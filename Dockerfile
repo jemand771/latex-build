@@ -1,40 +1,36 @@
 FROM ubuntu:20.04
 
-RUN apt-get update
-# fix for delayed debconf
-RUN apt-get install -y --no-install-recommends apt-utils
-# fix for tzdata package:
-ARG DEBIAN_FRONTEND=noninteractive
-ARG DEBCONF_NONINTERACTIVE_SEEN=true
-RUN apt-get install tzdata
-# texlive stuff and things
-RUN apt-get install -y texlive-latex-base
-RUN apt-get install -y texlive-fonts-recommended
-#RUN apt-get install -y texlive-fonts-extra
-RUN apt-get install -y texlive-latex-extra
-# support for babel ngerman
-RUN apt-get install -y texlive-lang-german
-# bibtex
-RUN apt-get install -y biber
-RUN apt-get install -y texlive-bibtex-extra
-# pygmentize
-RUN apt-get install -y python3
-RUN apt-get install -y python3-pip
+# debian packages: tzdata, texlive, python, inkscape
+RUN apt-get update &&\
+    DEBIAN_FRONTEND=noninteractive \
+    DEBCONF_NONINTERACTIVE_SEEN=true \
+    apt-get install -y --no-install-recommends \
+    apt-utils \
+    biber \
+    inkscape \
+    python3 \
+    python3-pip \
+    texlive-bibtex-extra \
+    texlive-fonts-recommended \
+    texlive-lang-german \
+    texlive-latex-base \
+    texlive-latex-extra \
+    tzdata \
+    && rm -rf /var/lib/apt/lists/*
+# pygments for syntax highlighting via minted
 RUN pip3 install Pygments
-# inkscape
-RUN apt-get install -y inkscape
-# latexrun
+
 ADD https://raw.githubusercontent.com/aclements/latexrun/master/latexrun /latexrun.py
-# working directory
-RUN mkdir /latex
+# allow non-root container run
+RUN chmod 644 /latexrun.py
 WORKDIR /latex
-# environment variables
+
+# settings (used in compile.sh)
 ENV WARNINGS -Wall
 ENV DELETE_TEMP=
 ENV CLEAN_BUILD=
 ENV TARGET main
 
-# compilation script
 COPY compile.sh /
 
 CMD ["bash", "/compile.sh"]
