@@ -29,14 +29,15 @@ RUN apt-get update &&\
 ADD https://raw.githubusercontent.com/aclements/latexrun/master/latexrun /latexrun.py
 # allow non-root container run
 RUN chmod 644 /latexrun.py
-WORKDIR /latex
 
 # settings (used in compile.sh)
 ENV WARNINGS -Wall
 ENV DELETE_TEMP=
 ENV CLEAN_BUILD=
 ENV TARGET main
-ENV BUILD_DIRECTORY_RELATIVE .build
+ENV BUILD_DIRECTORY .build
+ENV BIND_PATH /latex
+WORKDIR /$BIND_PATH
 
 COPY compile.sh /
 

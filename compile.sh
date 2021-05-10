@@ -1,14 +1,15 @@
 # ln -s /latex/_minted-main /latex/latex.out/_minted-main
-if [ ! "$CLEAN_BUILD" == "" ] && [ -d "/latex/$BUILD_DIRECTORY_RELATIVE" ]; then
-  rm -r /latex/$BUILD_DIRECTORY_RELATIVE
+BUILDDIR_FULL=$BIND_PATH/$BUILD_DIRECTORY
+if [ ! "$CLEAN_BUILD" == "" ] && [ -d "$BUILDDIR_FULL" ]; then
+  rm -r "$BUILDDIR_FULL"
 fi
-mkdir -p /latex/$BUILD_DIRECTORY_RELATIVE
-cp -r /latex/* /latex/$BUILD_DIRECTORY_RELATIVE/
-cd /latex/$BUILD_DIRECTORY_RELATIVE
+mkdir -p "$BUILDDIR_FULL"
+cp -r "$BIND_PATH"/* "$BUILDDIR_FULL/"
+cd "$BUILDDIR_FULL"
 python3 /latexrun.py --latex-args=--shell-escape --bibtex-cmd biber -O . $WARNINGS $TARGET && \
-cp /latex/$BUILD_DIRECTORY_RELATIVE/main.pdf /latex/main.pdf && \
+cp "$BUILDDIR_FULL/main.pdf" "$BIND_PATH/main.pdf" && \
 if [ ! "$DELETE_TEMP" == "" ]; then
-  rm -r /latex/$BUILD_DIRECTORY_RELATIVE
+  rm -r "$BUILDDIR_FULL"
 fi
 
 #pdflatex --shell-escape "$TARGET"
