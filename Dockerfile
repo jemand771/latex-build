@@ -1,6 +1,7 @@
 FROM ubuntu:20.04
 
 # debian packages: tzdata, texlive, python, inkscape
+# python packages: Pygments
 RUN apt-get update &&\
     DEBIAN_FRONTEND=noninteractive \
     DEBCONF_NONINTERACTIVE_SEEN=true \
@@ -16,20 +17,27 @@ RUN apt-get update &&\
     texlive-latex-base \
     texlive-latex-extra \
     tzdata \
-    && rm -rf /var/lib/apt/lists/*
-# pygments for syntax highlighting via minted
-RUN pip3 install Pygments
+&& \
+    pip3 install \
+    Pygments \
+&& \
+    apt-get purge -y --auto-remove \
+    python3-pip \
+&& \
+    rm -rf /var/lib/apt/lists/*
 
 ADD https://raw.githubusercontent.com/aclements/latexrun/master/latexrun /latexrun.py
 # allow non-root container run
 RUN chmod 644 /latexrun.py
-WORKDIR /latex
 
 # settings (used in compile.sh)
 ENV WARNINGS -Wall
 ENV DELETE_TEMP=
 ENV CLEAN_BUILD=
 ENV TARGET main
+ENV BUILD_DIRECTORY .build
+ENV BIND_PATH /latex
+WORKDIR /$BIND_PATH
 
 COPY compile.sh /
 
