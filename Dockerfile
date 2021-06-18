@@ -16,6 +16,7 @@ RUN apt-get update &&\
     texlive-lang-german \
     texlive-latex-base \
     texlive-latex-extra \
+    texlive-extra-utils \
     tzdata \
 && \
     pip3 install \
@@ -37,6 +38,7 @@ ENV CLEAN_BUILD=
 ENV TARGET main
 ENV BUILD_DIRECTORY .build
 ENV BIND_PATH /latex
+ENV DISABLE_PYTHONTEX=
 WORKDIR /$BIND_PATH
 
 COPY compile.sh /
