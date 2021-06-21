@@ -11,7 +11,14 @@ if [ "$DISABLE_PYTHONTEX" == "" ]; then
   # however, latexrun itself is smart enough to only run pdflatex once
   # don't print the output since latexrun will be re-run anyway
   python3 /latexrun.py --latex-args=--shell-escape --bibtex-cmd biber -O . $WARNINGS $TARGET > /dev/null
-  pythontex --interpreter python:python3 main
+  if [ -f "$BUILDDIR_FULL/$TARGET.pytxcode" ]; then
+    # only run pythontex if a pytxcode file was generated
+    # this prevents the useless invocation of pythontex when the package wasn't used at all
+    if ! pythontex --interpreter python:python3 $TARGET &> "$BUILDDIR_FULL/$TARGET.pythontex.log"; then
+      # ony forward the pythontex log output if errors occured - we don't care otherwise
+      cat "$BUILDDIR_FULL/$TARGET.pythontex.log"
+    fi
+  fi
 fi
 # this is a && chain - new files won't be copied if the build fails
 python3 /latexrun.py --latex-args=--shell-escape --bibtex-cmd biber -O . $WARNINGS $TARGET && \
