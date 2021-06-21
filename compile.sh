@@ -21,8 +21,21 @@ if [ "$DISABLE_PYTHONTEX" = "" ]; then
     fi
   fi
 fi
+LATEX_ARGS="--shell-escape"
+if [ "$DISABLE_SYNCTEX" = "" ]; then
+  LATEX_ARGS="$LATEX_ARGS --synctex=1"
+fi
 # this is a && chain - new files won't be copied if the build fails
-python3 /latexrun.py --latex-args=--shell-escape --bibtex-cmd biber -O . $WARNINGS $TARGET && \
+python3 /latexrun.py --latex-args="$LATEX_ARGS" --bibtex-cmd biber -O . $WARNINGS $TARGET && \
+if [ "$DISABLE_SYNCTEX" = "" ]; then
+  # extract, rewrite and re-gz synctex
+  gunzip $TARGET.synctex.gz
+  # use python to re-write file paths (sed kept messing with windows' backslashes)
+  python3 -c "import sys; print(sys.stdin.read().replace(*sys.argv[1:3]))" "$BUILDDIR_FULL" "$HOST_PATH" < $TARGET.synctex > synctex.temp
+  mv synctex.temp $TARGET.synctex
+  # LaTeX workshop uses an uncompressed .synctex file instead of .synctex.gz so we don't have to recompress it
+  cp -u "$BUILDDIR_FULL/$TARGET.synctex" "$BIND_PATH/$TARGET.synctex"
+fi && \
 cp -u "$BUILDDIR_FULL/main.pdf" "$BIND_PATH/main.pdf" && \
 if [ ! "$DELETE_TEMP" = "" ]; then
   rm -r "$BUILDDIR_FULL"
