@@ -12,12 +12,12 @@ if [ "$DISABLE_PYTHONTEX" = "" ]; then
   # however, latexrun itself is smart enough to only run pdflatex once
   # don't print the output since latexrun will be re-run anyway
   python3 /latexrun.py --latex-args=--shell-escape --bibtex-cmd biber -O . $WARNINGS $TARGET > /dev/null
-  if [ -f "$BUILDDIR_FULL/$TARGET.pytxcode" ]; then
+  if [ -f "$TARGET.pytxcode" ]; then
     # only run pythontex if a pytxcode file was generated
     # this prevents the useless invocation of pythontex when the package wasn't used at all
     if ! pythontex --interpreter python:python3 $TARGET &> "$BUILDDIR_FULL/$TARGET.pythontex.log"; then
       # ony forward the pythontex log output if errors occured - we don't care otherwise
-      cat "$BUILDDIR_FULL/$TARGET.pythontex.log"
+      cat "$TARGET.pythontex.log"
     fi
   fi
 fi
@@ -34,9 +34,10 @@ if [ "$DISABLE_SYNCTEX" = "" ]; then
   python3 -c "import sys; print(sys.stdin.read().replace(*sys.argv[1:3]))" "$BUILDDIR_FULL" "$HOST_PATH" < $TARGET.synctex > synctex.temp
   mv synctex.temp $TARGET.synctex
   # LaTeX workshop uses an uncompressed .synctex file instead of .synctex.gz so we don't have to recompress it
-  cp -u "$BUILDDIR_FULL/$TARGET.synctex" "$BIND_PATH/$TARGET.synctex"
+  cp -u "$TARGET.synctex" "$BIND_PATH/$TARGET.synctex"
 fi && \
-cp -u "$BUILDDIR_FULL/main.pdf" "$BIND_PATH/main.pdf" && \
+cp -u "$TARGET.pdf" "$BIND_PATH/$TARGET.pdf" && \
 if [ ! "$DELETE_TEMP" = "" ]; then
+  cd /
   rm -r "$BUILDDIR_FULL"
 fi
