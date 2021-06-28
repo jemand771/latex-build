@@ -27,6 +27,11 @@ RUN apt-get update &&\
 && \
     rm -rf /var/lib/apt/lists/*
 
+# minted expects "python" in PATH (not "python3")
+# without this, things like autogobble with \inputminted break
+# https://github.com/alexpovel/latex-extras-docker/blob/5429a82ef415c2e9eda0c20f71e7df63b51621e9/Dockerfile#L80-L87
+RUN ln -s /usr/bin/python3 /usr/bin/python
+
 ADD https://raw.githubusercontent.com/aclements/latexrun/master/latexrun /latexrun.py
 # allow non-root container run
 RUN chmod 644 /latexrun.py
