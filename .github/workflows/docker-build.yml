@@ -50,7 +50,7 @@ jobs:
         with:
           path: /tmp/.buildx-cache
           key: buildx-${{ runner.os }}-${{ github.sha }}
-          restore-keys:
+          restore-keys: |
             buildx-${{ runner.os }}-
             buildx-
       - name: Build and push
