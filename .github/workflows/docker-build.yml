@@ -50,6 +50,6 @@ jobs:
         with:
           context: .
           platforms: linux/amd64,linux/arm64,linux/arm/v7
-          push: false
+          push: true
           tags: ${{ steps.meta.output.tags }}
           labels: ${{ steps.meta.output.labels }}
