@@ -1,7 +1,5 @@
 FROM ubuntu:20.04
 
-# debian packages: tzdata, texlive, python, inkscape
-# python packages: Pygments
 RUN apt-get update &&\
     DEBIAN_FRONTEND=noninteractive \
     DEBCONF_NONINTERACTIVE_SEEN=true \
