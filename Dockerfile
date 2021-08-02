@@ -4,15 +4,16 @@ RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive \
     DEBCONF_NONINTERACTIVE_SEEN=true \
     apt-get install -y \
+    automake \
+    autotools-dev \
+    build-essential \
     git \
+    libwxgtk3.0-gtk3-dev \
     libpoppler-glib-dev \
-    poppler-utils \
-    libwxgtk3.0-gtk3-dev
-RUN apt-get install -y autotools-dev automake
+    poppler-utils
 RUN git clone https://github.com/vslavik/diff-pdf.git
 WORKDIR /tmp/diff-pdf
 RUN ./bootstrap
-RUN apt-get install -y build-essential
 RUN ./configure
 RUN make -j4
 
