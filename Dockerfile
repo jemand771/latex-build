@@ -57,18 +57,18 @@ ADD https://raw.githubusercontent.com/aclements/latexrun/master/latexrun /latexr
 RUN chmod 644 /latexrun.py
 
 # settings (used in compile.sh)
-ENV WARNINGS -Wall
-ENV DELETE_TEMP=
-ENV CLEAN_BUILD=
-ENV TARGET main
-ENV BUILD_DIRECTORY .build
 ENV BIND_PATH /latex
+ENV BUILD_DIRECTORY .build
+ENV CLEAN_BUILD=
+ENV DELETE_TEMP=
+ENV DISABLE_DIFFPDF=
 ENV DISABLE_PYTHONTEX=
 ENV DISABLE_SYNCTEX=
-ENV DISABLE_DIFFPDF=
 ENV HOST_PATH=
-WORKDIR $BIND_PATH
+ENV TARGET main
+ENV WARNINGS -Wall
 
+WORKDIR $BIND_PATH
 COPY compile.sh /
 
 CMD ["bash", "/compile.sh"]
