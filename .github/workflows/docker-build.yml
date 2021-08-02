@@ -20,7 +20,9 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: ghcr.io/jemand771/latex-build
+          images: |
+            jemand771/latex-build
+            ghcr.io/jemand771/latex-build
           flavor: |
             latest=false
           tags: |
