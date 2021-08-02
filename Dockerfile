@@ -13,7 +13,6 @@ RUN apt-get update &&\
     texlive-extra-utils \
     texlive-fonts-recommended \
     texlive-lang-german \
-    texlive-latex-base \
     texlive-latex-extra \
     texlive-plain-generic \
     tzdata \
