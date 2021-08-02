@@ -13,10 +13,10 @@ RUN apt-get update &&\
     python3-pip \
     texlive-bibtex-extra \
     texlive-fonts-recommended \
-    texlive-generic-recommended \
     texlive-lang-german \
     texlive-latex-base \
     texlive-latex-extra \
+    texlive-plain-generic \
     texlive-extra-utils \
     tzdata \
 && \
