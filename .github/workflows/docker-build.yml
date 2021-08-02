@@ -23,10 +23,9 @@ jobs:
             jemand771/latex-build
             ghcr.io/jemand771/latex-build
           flavor: |
-            latest=false
+            latest=true
           tags: |
             type=semver,pattern=v{{version}}
-            type=semver,pattern=v{{version}},value=latest
             type=raw,enable=${{ github.ref == 'refs/heads/dev' }},value=experimental
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
