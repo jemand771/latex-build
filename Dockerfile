@@ -1,7 +1,5 @@
 FROM ubuntu:20.04
 
-# debian packages: tzdata, texlive, python, inkscape
-# python packages: Pygments
 RUN apt-get update &&\
     DEBIAN_FRONTEND=noninteractive \
     DEBCONF_NONINTERACTIVE_SEEN=true \
@@ -12,11 +10,12 @@ RUN apt-get update &&\
     python3 \
     python3-pip \
     texlive-bibtex-extra \
+    texlive-extra-utils \
     texlive-fonts-recommended \
     texlive-lang-german \
     texlive-latex-base \
     texlive-latex-extra \
-    texlive-extra-utils \
+    texlive-plain-generic \
     tzdata \
 && \
     pip3 install \

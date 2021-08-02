@@ -23,7 +23,7 @@ jobs:
             jemand771/latex-build
             ghcr.io/jemand771/latex-build
           flavor: |
-            latest=true
+            latest=auto
           tags: |
             type=semver,pattern=v{{version}}
             type=raw,enable=${{ github.ref == 'refs/heads/dev' }},value=experimental
