@@ -12,12 +12,12 @@ RUN apt-get update &&\
     python3 \
     python3-pip \
     texlive-bibtex-extra \
+    texlive-extra-utils \
     texlive-fonts-recommended \
     texlive-lang-german \
     texlive-latex-base \
     texlive-latex-extra \
     texlive-plain-generic \
-    texlive-extra-utils \
     tzdata \
 && \
     pip3 install \
