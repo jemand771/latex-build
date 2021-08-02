@@ -12,7 +12,7 @@ on:
 jobs:
   buildx:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 240
     steps:
       - name: Turnstyle
         uses: softprops/turnstyle@v1
