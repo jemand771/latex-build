@@ -14,7 +14,6 @@ RUN apt-get update &&\
     texlive-fonts-recommended \
     texlive-lang-german \
     texlive-latex-extra \
-    texlive-pictures \
     texlive-plain-generic \
     tzdata \
 && \
