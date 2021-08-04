@@ -9,7 +9,7 @@ A docker container for building LaTeX documents. Designed for [DSczyrba/Vorlage-
 ## Quickstart
 The container is supposed to be created and run exactly once per build.
 ```
-docker run --rm -v \"$(pwd):/latex\" ghcr.io/jemand771/latex-build"
+docker run --rm -v "$(pwd):/latex" ghcr.io/jemand771/latex-build
 ```
 This will try to build the file `main.tex` in the current working directory into a `main.pdf`. See below for more info on configuration options.
 
