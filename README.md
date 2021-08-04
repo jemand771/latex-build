@@ -38,12 +38,12 @@ The table below lists all environment variables declared in the Dockerfile. You 
 | ------------------ | ------------- | ----------- |
 | BIND_PATH          | /latex        | The path specified after `-v` the container will use internally. There is no need to change this unless you're integrating this container into a build script that can't be changed. |
 | BUILD_DIRECTORY    | .build        | The name of the temporary directory used for building. This will appear inside both `$BIND_PATH` and the host folder bound to it. Change this if you don't like the name. |
-| CLEAN_BUILD=       |               | Set this to a non-empty value to enable clean builds - this will delete the `$BUILD_DIRECTORY` folder bevore proceeding. |
-| DELETE_TEMP=       |               | Like clean builds, but the other way around: Build and clean up afterwards (note: this might still use the build cache from before if it exists.) |
-| DISABLE_DIFFPDF=   |               | Disable the diff-pdf feature. See below. |
-| DISABLE_PYTHONTEX= |               | Disable the pythontex feature. See below. |
-| DISABLE_SYNCTEX=   |               | Disable the synctex feature. See below. |
-| HOST_PATH=         |               | Optional argument to tell the container which path `$BIND_PATH` is bound to. Set this to the host path specified after `-v`. |
+| CLEAN_BUILD        |               | Set this to a non-empty value to enable clean builds - this will delete the `$BUILD_DIRECTORY` folder bevore proceeding. |
+| DELETE_TEMP        |               | Like clean builds, but the other way around: Build and clean up afterwards (note: this might still use the build cache from before if it exists.) |
+| DISABLE_DIFFPDF    |               | Set to non-empty value to disable the diff-pdf feature. See below. |
+| DISABLE_PYTHONTEX  |               | Set to non-empty value to disable the pythontex feature. See below. |
+| DISABLE_SYNCTEX    |               | Set to non-empty value to disable the synctex feature. See below. |
+| HOST_PATH          |               | Optional argument to tell the container which path `$BIND_PATH` is bound to. Set this to the host path specified after `-v`. |
 | TARGET             | main          | Name of the LaTeX target file without extension. All resulting files will be named after this, i.e. `$TARGET.pdf`, `$TARGET.synctex.gz`, ... |
 | WARNINGS           | -Wall         | Warning options to pass to [`latexrun.py`](https://github.com/aclements/latexrun). Use this to silence certain warnings. |
 
