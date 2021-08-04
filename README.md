@@ -1,7 +1,8 @@
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/jemand771/latex-build/docker-build?style=for-the-badge)
-![GHCR](https://img.shields.io/badge/GHCR-same_as_---->-blue.svg?style=for-the-badge)
-![Docker Image Version (latest semver)](https://img.shields.io/docker/v/jemand771/latex-build?label=docker%20hub&sort=semver&style=for-the-badge)
-![PRs Welcome](https://img.shields.io/badge/Pull_requests-welcome-brightgreen.svg?style=for-the-badge)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/jemand771/latex-build/docker-build?style=for-the-badge)](https://github.com/jemand771/latex-build/actions)
+[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/jemand771/latex-build?style=for-the-badge)](https://github.com/jemand771/latex-build/releases/latest)
+[![GHCR](https://img.shields.io/badge/GHCR-same_as_---->-blue.svg?style=for-the-badge)](https://github.com/jemand771/latex-build/pkgs/container/latex-build)
+[![Docker Image Version (latest semver)](https://img.shields.io/docker/v/jemand771/latex-build?label=docker%20hub&sort=semver&style=for-the-badge)](https://hub.docker.com/repository/docker/jemand771/latex-build)
+[![PRs Welcome](https://img.shields.io/badge/Pull_requests-welcome-brightgreen.svg?style=for-the-badge)](https://github.com/jemand771/latex-build/compare)
 # latex-build
 A docker container for building LaTeX documents. Designed for [DSczyrba/Vorlage-Latex](https://github.com/DSczyrba/Vorlage-Latex)
 
