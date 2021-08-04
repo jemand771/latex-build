@@ -48,10 +48,20 @@ The table below lists all environment variables declared in the Dockerfile. You 
 | WARNINGS           | -Wall         | Warning options to pass to [`latexrun.py`](https://github.com/aclements/latexrun). Use this to silence certain warnings. |
 
 ## Features
+By default, all optional container features are enabled. See above on how to disable features you don't need.
+
 ### Basics
+This container uses [latexrun](https://github.com/aclements/latexrun) to build LaTeX documents which itself uses pdflatex and biber. It (latexrun) dertermines whether pdflatex needs to run again in order to keep compilation times low.
+
+When launching the container, all files in the bound path will be copied to a temporary subfolder (called `.build` by default, name is configurable) and compilation will run there. After that, all important output files (namely the output PDF) will be copied back to where the source files came from. This has the advantage of not cluttering your working directory while still telling pdflatex to use `.` as the target folder (a `cd` is done inside the container). Otherwise, some packages (e.g. minted) may not work properly because they can't find their cache.
 
 ### Diff-PDF
+This container may use [diff-pdf](https://vslavik.github.io/diff-pdf/) to generate a second PDF file highlighting the differences between the previous and current build. Note that this takes a couple of seconds, so if you don't need this, you should probably disable it.
 
 ### Pythontex
+This container can handle documents containing [PythonTeX](https://ctan.org/pkg/pythontex). This means that python code can be executed at LaTeX compile time. To achieve support for this, pdflatex and pythontex need to be run before compiling the actual document. This feature doesn't add much compile time if you leave it enabled without using it.
 
 ### Synctex
+This container can generate a `synctex.gz` file for you. Because all of the paths inside that file will refer to the folder structure inside the container (`/latex/.build/<bla>`), we rewrite this file by replacing all known-bound paths with their corresponding host paths. This way, forward and reverse synctex works for all of the local project files. (however, it doesn't work for installed packages since their location might be completely different)
+
+In order to use this feature, you need to set the environment variable `HOST_PATH` to the same folder you bound `/latex` to. (the part before the colon). If you don't set this variable, a synctex file will still be generated but it won't be usable by your editor (wrong contents/paths. You can use the option specified above disable synctex generation completely.
