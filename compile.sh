@@ -6,6 +6,14 @@ fi
 mkdir -p "$BUILDDIR_FULL"
 cp -r -u "$BIND_PATH"/* "$BUILDDIR_FULL/"
 cd "$BUILDDIR_FULL"
+# save old pdf 
+if [ "$DISABLE_DIFFPDF" = "" ]; then
+  if [ -f "$BIND_PATH/$TARGET.pdf" ]; then
+    cp -u "$BIND_PATH/$TARGET.pdf" "$TARGET-old.pdf"
+  else
+    echo "$TARGET.pdf doesn't exist, not generating diff!"
+  fi
+fi
 # this variable is empty by default -> fill to disable
 if [ "$DISABLE_PYTHONTEX" = "" ]; then
   # we could use a bare pdflatex here
@@ -26,7 +34,7 @@ if [ "$DISABLE_SYNCTEX" = "" ]; then
   LATEX_ARGS="$LATEX_ARGS --synctex=1"
 fi
 # this is a && chain - new files won't be copied if the build fails
-python3 /latexrun.py --latex-args="$LATEX_ARGS" --bibtex-cmd biber -O . $WARNINGS $TARGET && \
+python3 /latexrun.py --latex-args="$LATEX_ARGS" --bibtex-cmd biber -O . $WARNINGS $TARGET || exit
 if [ "$DISABLE_SYNCTEX" = "" ]; then
   # extract, rewrite and re-gz synctex
   gunzip $TARGET.synctex.gz
@@ -35,8 +43,13 @@ if [ "$DISABLE_SYNCTEX" = "" ]; then
   mv synctex.temp $TARGET.synctex
   # LaTeX workshop uses an uncompressed .synctex file instead of .synctex.gz so we don't have to recompress it
   cp -u "$TARGET.synctex" "$BIND_PATH/$TARGET.synctex"
-fi && \
-cp -u "$TARGET.pdf" "$BIND_PATH/$TARGET.pdf" && \
+fi
+if [ -f "$TARGET-old.pdf" ]; then
+  xvfb-run diff-pdf --output-diff="$TARGET-diff.pdf" "$TARGET-old.pdf" "$TARGET.pdf"
+  rm "$TARGET-old.pdf"
+  cp -u "$TARGET-diff.pdf" "$BIND_PATH/$TARGET-diff.pdf"
+fi
+cp -u "$TARGET.pdf" "$BIND_PATH/$TARGET.pdf"
 if [ ! "$DELETE_TEMP" = "" ]; then
   cd /
   rm -r "$BUILDDIR_FULL"
