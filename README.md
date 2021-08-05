@@ -58,6 +58,8 @@ When launching the container, all files in the bound path will be copied to a te
 ### Diff-PDF
 This container may use [diff-pdf](https://vslavik.github.io/diff-pdf/) to generate a second PDF file highlighting the differences between the previous and current build. Note that this takes a couple of seconds, so if you don't need this, you should probably disable it.
 
+Important note: this feature requires the docker container to be launched with the `--init` flag.
+
 ### Pythontex
 This container can handle documents containing [PythonTeX](https://ctan.org/pkg/pythontex). This means that python code can be executed at LaTeX compile time. To achieve support for this, pdflatex and pythontex need to be run before compiling the actual document. This feature doesn't add much compile time if you leave it enabled without using it.
 
@@ -65,3 +67,6 @@ This container can handle documents containing [PythonTeX](https://ctan.org/pkg/
 This container can generate a `synctex.gz` file for you. Because all of the paths inside that file will refer to the folder structure inside the container (`/latex/.build/<bla>`), we rewrite this file by replacing all known-bound paths with their corresponding host paths. This way, forward and reverse synctex works for all of the local project files. (however, it doesn't work for installed packages since their location might be completely different)
 
 In order to use this feature, you need to set the environment variable `HOST_PATH` to the same folder you bound `/latex` to. (the part before the colon). If you don't set this variable, a synctex file will still be generated but it won't be usable by your editor (wrong contents/paths. You can use the option specified above disable synctex generation completely.
+
+## Contributing
+If you have any questions, feature requests or LaTeX package suggestions, feel free to open an issue here on GitHub.
