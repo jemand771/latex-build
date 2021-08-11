@@ -45,7 +45,7 @@ if [ "$DISABLE_SYNCTEX" = "" ]; then
   cp -u "$TARGET.synctex" "$BIND_PATH/$TARGET.synctex"
 fi
 if [ -f "$TARGET-old.pdf" ]; then
-  xvfb-run diff-pdf --output-diff="$TARGET-diff.pdf" "$TARGET-old.pdf" "$TARGET.pdf"
+  xvfb-run diff-pdf -v -m -s --output-diff="$TARGET-diff.pdf" "$TARGET-old.pdf" "$TARGET.pdf"
   rm "$TARGET-old.pdf"
   cp -u "$TARGET-diff.pdf" "$BIND_PATH/$TARGET-diff.pdf"
 fi
