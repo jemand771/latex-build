@@ -5,11 +5,11 @@
 from pygments.lexer import RegexLexer, bygroups
 from pygments.token import *
 
-__all__ = ['regexLexer']
+__all__ = ['CustomRegexLexer']
 
-class regexLexer(RegexLexer):
-    name = 'regex'
-    aliases = ['regex']
+class CustomRegexLexer(RegexLexer):
+    name = 'custom-regex'
+    aliases = ['custom-regex']
     filenames = []
 
     tokens = {
