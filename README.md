@@ -68,5 +68,11 @@ This container can generate a `synctex.gz` file for you. Because all of the path
 
 In order to use this feature, you need to set the environment variable `HOST_PATH` to the same folder you bound `/latex` to. (the part before the colon). If you don't set this variable, a synctex file will still be generated but it won't be usable by your editor (wrong contents/paths. You can use the option specified above disable synctex generation completely.
 
+### Custom pygments lexers
+This repo supports registering additional pygments lexers (the "renderers" for the LaTeX package `minted`) at build time. These can be refered to by any one of their aliases listed below. (e.g. `\begin{minted}{custom-regex}`)
+| name           | description                                                                                                                      | aliases        |
+| -------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `custom-regex` | A lexer for highlighting regular expressions. (ps: don't confuse this with the `RegexLexer` base class for all pygments lexers.) | `custom-regex` |
+
 ## Contributing
 If you have any questions, feature requests or LaTeX package suggestions, feel free to open an issue here on GitHub.
