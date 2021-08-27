@@ -47,6 +47,11 @@ RUN apt-get update &&\
 && \
     rm -rf /var/lib/apt/lists/*
 
+# install custom pygments lexers
+WORKDIR /usr/local/lib/python3.8/dist-packages/pygments/lexers
+COPY pygments-lexers/* .
+RUN python3 _mapping.py
+
 # minted expects "python" in PATH (not "python3")
 # without this, things like autogobble with \inputminted break
 # https://github.com/alexpovel/latex-extras-docker/blob/5429a82ef415c2e9eda0c20f71e7df63b51621e9/Dockerfile#L80-L87
