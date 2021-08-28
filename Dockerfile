@@ -3,10 +3,11 @@ WORKDIR /tmp
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive \
     DEBCONF_NONINTERACTIVE_SEEN=true \
-    apt-get install -y \
+    apt-get install -y --no-install-recommends \
     automake \
     autotools-dev \
     build-essential \
+    ca-certificates \
     git \
     libwxgtk3.0-gtk3-dev \
     libpoppler-glib-dev \
