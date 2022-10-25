@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.10
 WORKDIR /tmp
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive \
@@ -18,7 +18,7 @@ RUN ./bootstrap
 RUN ./configure
 RUN make -j4
 
-FROM ubuntu:20.04
+FROM ubuntu:22.10
 
 COPY --from=0 /tmp/diff-pdf/diff-pdf /bin/diff-pdf
 RUN apt-get update &&\
@@ -49,7 +49,7 @@ RUN apt-get update &&\
     rm -rf /var/lib/apt/lists/*
 
 # install custom pygments lexers
-WORKDIR /usr/local/lib/python3.8/dist-packages/pygments/lexers
+WORKDIR /usr/local/lib/python3.10/dist-packages/pygments/lexers
 COPY pygments-lexers/* .
 RUN python3 _mapping.py
 
